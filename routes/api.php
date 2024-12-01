@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\Auth\PasswordResetController;
 use App\Http\Middleware\TowFactor;
+// test for git hup repo 
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -19,17 +20,17 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh'])->middleware('auth:api')->name('refresh');
     Route::post('/me', [AuthController::class, 'me'])->middleware('auth:api')->name('me');
 });
-Route::post('verify',[AuthController::class,'verify']);
+Route::post('verify', [AuthController::class, 'verify']);
 
 
 Route::group([
-    'middleware' => [TowFactor::class,'api'],
+    'middleware' => [TowFactor::class, 'api'],
 ], function ($router) {
     Route::post('password/request', [PasswordResetController::class, 'sendConfirmationEmail']);  // Send email
-Route::get('password/confirm/{token}', [PasswordResetController::class, 'confirmReset']); // Confirm password reset
-Route::post('password/reset/{token}', [PasswordResetController::class, 'resetPassword']);
-Route::put('update',[UserController::class,'updateInfo']);
-Route::delete('/deleteImage', [UserController::class, 'deleteImage']);
-Route::put('/updatePassword', [UserController::class, 'updatePassword']);
-Route::put('/udpdateImage',[UserController::class,'updateImage']);
+    Route::get('password/confirm/{token}', [PasswordResetController::class, 'confirmReset']); // Confirm password reset
+    Route::post('password/reset/{token}', [PasswordResetController::class, 'resetPassword']);
+    Route::put('update', [UserController::class, 'updateInfo']);
+    Route::delete('/deleteImage', [UserController::class, 'deleteImage']);
+    Route::put('/updatePassword', [UserController::class, 'updatePassword']);
+    Route::put('/udpdateImage', [UserController::class, 'updateImage']);
 });
